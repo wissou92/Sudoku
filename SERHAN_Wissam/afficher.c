@@ -64,7 +64,10 @@ void sudoku_afficher(SUDOKU S, char* nom) {
 		for(int j=0; j<9; j++)
 		{
 			P.x = (j*TAILLE_CASE) + (TAILLE_CASE/2) - 10; 
-			aff_int(S.T[i][j].valeur, TAILLE_POLICE, P, (S.T[i][j].modifiable == TRUE) ? COUL_VAL_TRAVAIL : COUL_VAL_DEPART);
+			if(S.T[i][j].valeur != 0)
+			{
+				aff_int(S.T[i][j].valeur, TAILLE_POLICE, P, (S.T[i][j].modifiable == TRUE) ? COUL_VAL_TRAVAIL : COUL_VAL_DEPART);
+			}
 		}
 	}
 	affiche_all();

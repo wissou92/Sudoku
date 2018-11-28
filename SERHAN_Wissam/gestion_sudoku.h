@@ -19,6 +19,4 @@ typedef struct sudoku SUDOKU;
 SUDOKU initialiser_sudoku(SUDOKU S);
 // Change la case d'un Sudoku avec la prochaine valeur disponible
 void changer_case(SUDOKU S, int i, int j);
-// Verifie colonne, ligne et autour de la case les valeurs possible
-int verifier_valeurs(SUDOKU S, int i, int j);
 #endif

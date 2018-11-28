@@ -13,13 +13,6 @@ SUDOKU initialiser_sudoku(SUDOKU S) {
 	return S;
 }
 
-int verifier_valeurs(SUDOKU S, int i, int j) {
-	return -1;
-}
-
 void changer_case(SUDOKU S, int i, int j) {
-	if(S.T[i][j].modifiable == TRUE) 
-	{
-		S.T[i][j].valeur++;
-	}
+
 }
