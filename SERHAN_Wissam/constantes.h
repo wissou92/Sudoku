@@ -14,12 +14,12 @@
 #define TAILLE_POLICE ((2*TAILLE_CASE)/3)
 
 // Les différentes couleurs à changer éventuellement
-#define COUL_TITRE 0x707070         // mediumslateblue  // Couleur du titre
-#define COUL_FOND 0xFCDC76          // Couleur de fond d'une case
+#define COUL_TITRE mediumslateblue        // mediumslateblue  // Couleur du titre
+#define COUL_FOND antiquewhite      // Couleur de fond d'une case
 #define COUL_FOND_PB rouge          // Couleur de fond d'une case qui ne peut plus prendre aucune valeur
 #define COUL_TRAIT noir             // Couleur des traits de séparation
 #define COUL_VAL_DEPART darkred     // Couleur de la police des valeurs de départ
-#define COUL_VAL_TRAVAIL 0xFF7028   //orange     // Couleur de la police des valeurs de travail
+#define COUL_VAL_TRAVAIL orange     // Couleur de la police des valeurs de travail
 // Booleen
 #define TRUE 1
 #define FALSE 0
