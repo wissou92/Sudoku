@@ -20,5 +20,5 @@ SUDOKU initialiser_sudoku(SUDOKU S);
 // Test les valeurs disponible
 void valeur_disponible(int* tab, SUDOKU S, int i, int j);
 // Change la case d'un Sudoku avec la prochaine valeur disponible
-void changer_case(SUDOKU S, int i, int j);
+SUDOKU changer_case(SUDOKU S, int i, int j);
 #endif

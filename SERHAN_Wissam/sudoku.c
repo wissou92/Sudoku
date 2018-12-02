@@ -5,12 +5,23 @@
 #include "gestion_sudoku.h"
 #include "lire_ecrire.h"
 
+SUDOKU jouer(SUDOKU S) {
+	POINT P = wait_clic();
+	int ligne = P.y/TAILLE_CASE;
+	int colonne = P.x/TAILLE_CASE;
+	if(S.T[ligne][colonne].modifiable==TRUE) S = changer_case(S,ligne,colonne);
+	return S;
+}
 
 int main (int argc, char *argv[]) {
-    SUDOKU S;
-    S = lire_fichier(argv[1]);
-    initialiser_fenetre_graphique();
-    sudoku_afficher(S, argv[1]);
-    terminer_fenetre_graphique();
-    exit(0);
+	SUDOKU S;
+	S = lire_fichier(argv[1]);
+	initialiser_fenetre_graphique();
+	sudoku_afficher(S, argv[1]);
+	while(1) {
+		S = jouer(S);
+		sudoku_afficher(S, argv[1]);
+	}
+	terminer_fenetre_graphique();
+	exit(0);
 }

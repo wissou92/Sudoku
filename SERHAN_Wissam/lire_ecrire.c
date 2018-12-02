@@ -10,10 +10,14 @@ SUDOKU lire_fichier (char *nom) {
 	S = initialiser_sudoku(S);
 	int i = 8; // axe y
 	int j; // axe x
+	int ligne = 1; int colonne=1; // pour la detection d'erreure
 	char caractere;
 	FILE *F;
 	F = fopen(nom, "r");
-	
+	if(F == NULL){
+		printf("Impossible d'ouvrir le fichier %s\n", nom);
+		exit(0);
+	}	
 	while(i >= 0)
 	{
 		j = 0;
@@ -29,18 +33,81 @@ SUDOKU lire_fichier (char *nom) {
 				case '.':
 					S.T[i][j].valeur = 0;
 					S.T[i][j].modifiable = TRUE;
+					colonne++;
 					j++;
 					break;
 				case '*':
 					S.T[i][j].modifiable = FALSE;
+					colonne++;
 					break;
-				default:  // demander au prof si faire tt les cas ou default suffit
+				case '0':
 					S.T[i][j].valeur = atoi(&caractere);
-					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE; // on verifie que la case n'a pas deja été mise à FAUX
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
 					j++;
+					colonne++;
+					break;
+				case '1':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '2':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '3':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '4':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '5':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '6':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '7':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '8':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				case '9':
+					S.T[i][j].valeur = atoi(&caractere);
+					S.T[i][j].modifiable = (S.T[i][j].modifiable) ? TRUE : FALSE;
+					j++;
+					colonne++;
+					break;
+				default:
+					printf("######\nErreure dans le fichier\nLigne: %d Colonne: %d\nErreure detectee: %c\n######\n",ligne, colonne, caractere);
+					exit(-2);
 					break;
 			}
 		}
+		colonne = 1;
+		ligne++;
 		i--;
 	}
 	fclose(F);
@@ -48,4 +115,8 @@ SUDOKU lire_fichier (char *nom) {
 }
 
 void ecrire_fichier(SUDOKU S) {
+	
+	//FILE* F = fopen("","w+");
+	
+	//fclose(F);
 }
