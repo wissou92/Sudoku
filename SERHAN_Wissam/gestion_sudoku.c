@@ -43,14 +43,14 @@ void valeur_disponible(int *tab, SUDOKU S, int i, int j) {
 }
 
 SUDOKU changer_case(SUDOKU S, int i, int j) {
-	int tab[10];
+	int *tab= malloc(10*sizeof(int));
 	valeur_disponible(tab, S, i, j);
 	int n = S.T[i][j].valeur;
 	do {
-		printf("n: %d; tab[n]: %d;\n", n, tab[n]);
 		n = (n+1)%10;
 	}while(tab[n]!=1);
 	
 	S.T[i][j].valeur = n;
+	free(tab);
 	return S;
 }

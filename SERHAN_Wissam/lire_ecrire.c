@@ -114,9 +114,29 @@ SUDOKU lire_fichier (char *nom) {
 	return S;
 }
 
-void ecrire_fichier(SUDOKU S) {
-	
-	//FILE* F = fopen("","w+");
-	
-	//fclose(F);
+void ecrire_fichier(SUDOKU S, char *nom) {
+	int n=0;
+	int chiffre;
+	char *numero;
+	char *newFile;
+	while(nom[n] != '.')n++;
+	chiffre = atoi(&nom[n+1])*100+atoi(&nom[n+2])*10+atoi(&nom[n+3]);
+	sprintf(numero, "%d", chiffre);
+	newFile = strcat("exemple.",strcat(numero,".sudoku"));
+	FILE* F = fopen(newFile,"w+");
+	for(int i=8; i>=0; i--)
+	{
+		for(int j=0; j<9; j++)
+		{
+			switch(S.T[i][j].modifiable)
+			{
+				case TRUE:
+					if(S.T[i][j].valeur!=0)fprintf(F, "%c", S.T[i][j].valeur);
+					else fprintf(F, ".");
+				case FALSE:
+					fprintf(F, "*%c", S.T[i][j].valeur);
+			}
+		}
+	}
+	fclose(F);
 }
