@@ -115,10 +115,11 @@ SUDOKU lire_fichier (char *nom) {
 }
 
 void ecrire_fichier(SUDOKU S, char *nom) {
-	int n=0;
-	int chiffre;
-	char *numero;
-	char *newFile;
+	int n=0;       // Passer les caractères
+	int chiffre;   // Numero du futur fichier en int
+	char *numero;  // Numero du futur fichier en char
+	char *newFile; // Futur nom de fichier
+	
 	while(nom[n] != '.')n++;
 	chiffre = atoi(&nom[n+1])*100+atoi(&nom[n+2])*10+atoi(&nom[n+3]);
 	sprintf(numero, "%d", chiffre);
