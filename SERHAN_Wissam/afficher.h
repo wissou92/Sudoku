@@ -13,4 +13,8 @@ void sudoku_afficher(SUDOKU S, char* nom);
 
 // Fonction qui dessine le quadrillage seul
 void afficher_quadrillage();
+
+// Affiche gagné quand c'est le cas
+void gagner();
+
 #endif

@@ -3,7 +3,7 @@ CFLAGSGR = ${CFLAGS} `sdl-config --cflags`
 LFLAGS = -luvsqgraphics `sdl-config --libs` -lm -lSDL_ttf
 
 run: sudoku
-	./sudoku test.sudoku
+	./sudoku jeux.001.sudoku
 
 # Edition de lien du programme principal
 sudoku: sudoku.o afficher.o gestion_sudoku.o lire_ecrire.o

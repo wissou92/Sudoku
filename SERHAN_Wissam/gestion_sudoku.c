@@ -3,6 +3,7 @@
 #include "gestion_sudoku.h"
 #include "constantes.h"
 
+
 SUDOKU initialiser_sudoku(SUDOKU S) {
 	for(int i=0; i<9; i++)
 	{
@@ -54,3 +55,20 @@ SUDOKU changer_case(SUDOKU S, int i, int j) {
 	free(tab);
 	return S;
 }
+
+int sudoku_complet(SUDOKU S) {
+	int compteur=0;
+	for(int i=0; i<9; i++)
+	{
+		for(int j=0; j<9; j++)
+		{
+			compteur += (S.T[i][j].valeur ==0) ? 0 : 1;
+		}
+	}
+	return (compteur==81) ? 1 : 0;
+}
+
+
+
+
+

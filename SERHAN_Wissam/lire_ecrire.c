@@ -117,13 +117,25 @@ SUDOKU lire_fichier (char *nom) {
 void ecrire_fichier(SUDOKU S, char *nom) {
 	int n=0;       // Passer les caractères
 	int chiffre;   // Numero du futur fichier en int
-	char *numero;  // Numero du futur fichier en char
+	char *numero = malloc(3*sizeof(char));  // Numero du futur fichier en char
 	char *newFile; // Futur nom de fichier
 	
-	while(nom[n] != '.')n++;
+	while(nom[n] != '.'){n++;}
+	
 	chiffre = atoi(&nom[n+1])*100+atoi(&nom[n+2])*10+atoi(&nom[n+3]);
 	sprintf(numero, "%d", chiffre);
-	newFile = strcat("exemple.",strcat(numero,".sudoku"));
+	if(chiffre>=100)
+	{
+		newFile = strcat("jeux.",strcat(numero,".sudoku"));
+	}
+	else if(chiffre>=10)
+	{
+		newFile = strcat("jeux.0",strcat(numero,".sudoku"));
+	}
+	else if(chiffre>=0)
+	{
+		newFile = strcat("jeux.00",strcat(numero,".sudoku"));
+	}
 	FILE* F = fopen(newFile,"w+");
 	for(int i=8; i>=0; i--)
 	{

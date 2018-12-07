@@ -55,8 +55,8 @@ void afficher_quadrillage() {
 void sudoku_afficher(SUDOKU S, char* nom) {
 	afficher_quadrillage();
 	POINT P, T;
-	T.x = 3*TAILLE_CASE; T.y = HAUTEUR - 3;
-	aff_pol(nom, TAILLE_POLICE, T, COUL_TITRE);
+	T.x = 2.5*TAILLE_CASE + 1; T.y = HAUTEUR - 7;
+	aff_pol(nom, TAILLE_POLICE_TITRE, T, COUL_TITRE);
 	for(int i=0; i<9; i++)
 	{
 		P.y = (i*TAILLE_CASE) + (TAILLE_CASE/2) + 20;
@@ -71,4 +71,11 @@ void sudoku_afficher(SUDOKU S, char* nom) {
 		}
 	}
 	affiche_all();
+}
+
+void gagner(){
+	POINT P;
+	P.x = LARGEUR/2; P.y = HAUTEUR/2;
+	fill_screen(COUL_FOND);
+	aff_pol("GAGNE", TAILLE_POLICE, P, blue);
 }
