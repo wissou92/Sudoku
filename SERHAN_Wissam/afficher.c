@@ -79,3 +79,17 @@ void gagner(){
 	fill_screen(COUL_FOND);
 	aff_pol("GAGNE", TAILLE_POLICE, P, blue);
 }
+
+void quitter()
+{
+	int lettre = get_key();
+	printf("%d\n", lettre);
+	if(lettre == 'q' || lettre == 'Q' || lettre == 113 || lettre == 81)
+	{
+		exit(0);
+	}
+	
+	
+}
+
+

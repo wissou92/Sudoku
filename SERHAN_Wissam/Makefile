@@ -29,7 +29,6 @@ clean:
 	rm -f *.o
 	rm -f sudoku
 
-
 # Pour faire un zip
 # Mettre son nom à la place de SUDOKU
 LENOM=NOM_Prenoms

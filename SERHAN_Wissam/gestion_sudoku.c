@@ -4,6 +4,51 @@
 #include "constantes.h"
 
 
+PILE* creer_pile() {
+	PILE *p;
+	p = malloc(sizeof(struct pile));
+	if(p == NULL)
+	{
+		exit(-1);
+	}
+	return p;
+}
+
+void push(PILE **p, SUDOKU S) {
+	PILE *p_tmp = creer_pile();
+	if(p_tmp == NULL)
+	{
+		exit(-1);
+	}
+	p_tmp->valeur = S;
+	p_tmp->precedent = *p;
+	*p = p_tmp;
+}
+
+void pop(PILE **p) {
+	if(p == NULL)
+	{
+		exit(-1);
+	}
+	PILE *p_tmp;
+	p_tmp = *p;
+	*p = p_tmp->precedent;
+}
+
+SUDOKU pick(PILE* p) {
+	if(p == NULL)
+	{
+		exit(-1);
+	}
+	return p->valeur;
+}
+
+SUDOKU depiler(PILE **p) {
+	SUDOKU S = pick(*p);
+	pop(p);
+	return S;
+}
+
 SUDOKU initialiser_sudoku(SUDOKU S) {
 	for(int i=0; i<9; i++)
 	{
@@ -67,8 +112,6 @@ int sudoku_complet(SUDOKU S) {
 	}
 	return (compteur==81) ? 1 : 0;
 }
-
-
 
 
 

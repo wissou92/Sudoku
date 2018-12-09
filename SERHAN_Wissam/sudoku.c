@@ -6,6 +6,7 @@
 #include "lire_ecrire.h"
 
 SUDOKU jouer(SUDOKU S) {
+	quitter();
 	POINT P = get_clic();
 	if((P.x >= 0 && P.y >= 0) && (P.y < 9 * TAILLE_CASE))
 	{
@@ -16,11 +17,13 @@ SUDOKU jouer(SUDOKU S) {
 	return S;
 }
 
+
 int main (int argc, char **argv) {
 	SUDOKU S;
 	S = lire_fichier(argv[1]);
 	initialiser_fenetre_graphique();
 	sudoku_afficher(S, argv[1]);
+	
 	while(!sudoku_complet(S)) {
 		S = jouer(S);
 		sudoku_afficher(S, argv[1]);
