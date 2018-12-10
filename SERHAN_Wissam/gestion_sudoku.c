@@ -73,17 +73,24 @@ void valeur_disponible(int *tab, SUDOKU S, int i, int j) {
 	 {
 		 tab[S.T[i][b].valeur]=0;
 	 }
-		
-	if(i != 8 && i != 2 && i != 5)
+	int l, c;
+	
+	if(i<=2) l = 1;
+	else if(i<=5 && i>2) l = 4;
+	else l = 7;
+	
+	if(j<=2) c = 1;
+	else if(j<=5 && i>2) c = 4;
+	else c = 7;	
+	
+	for(int n=l-1; n<=l+1; n++)
 	{
-		if(j!=0 && j!=3 && j!=6) tab[S.T[i+1][j-1].valeur]=0;
-		if(j!=8 && j!=2 && j!=5) tab[S.T[i+1][j+1].valeur]=0;
+		for(int m=c-1; m<=c+1;m++)
+		{
+			tab[S.T[n][m].valeur]=0;
+		}
 	}
-	if(i != 0 && i != 3 && i != 6)
-	{
-		if(j!=0 && j!=3 && j!=6) tab[S.T[i-1][j-1].valeur]=0;
-		if(j!=8 && j!=2 && j!=5) tab[S.T[i-1][j+1].valeur]=0;
-	}
+	
 	tab[S.T[i][j].valeur]=1;
 	tab[0]=1;
 }
