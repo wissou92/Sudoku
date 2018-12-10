@@ -6,8 +6,11 @@
 #include "lire_ecrire.h"
 
 SUDOKU jouer(SUDOKU S) {
-	quitter();
-	POINT P = get_clic();
+	POINT P;
+	char touche;
+	int* fleche;
+	wait_key_arrow_clic(&touche, &fleche, &P);
+	
 	if((P.x >= 0 && P.y >= 0) && (P.y < 9 * TAILLE_CASE))
 	{
 		int ligne = P.y/TAILLE_CASE;
