@@ -12,6 +12,7 @@ void terminer_fenetre_graphique() {
 	wait_escape();
 }
 
+
 void afficher_quadrillage() {
 	
 	fill_screen(COUL_FOND);
@@ -56,7 +57,7 @@ void sudoku_afficher(SUDOKU S, char* nom) {
 	if(S.T == NULL)// en raison d'un pick sur une pile vide
 	{
 		printf("Sudoku vide\n");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	else {
 		afficher_quadrillage();
@@ -81,22 +82,53 @@ void sudoku_afficher(SUDOKU S, char* nom) {
 }
 
 void gagner(){
-	POINT P;
-	P.x = LARGEUR/2; P.y = HAUTEUR/2;
+	POINT P, T;
+	POINT C1, C2;
+	
+	P.x = LARGEUR/2; P.y = HAUTEUR*0.75;
 	fill_screen(COUL_FOND);
-	aff_pol("GAGNE", TAILLE_POLICE, P, blue);
+	aff_pol_centre("GAGNE", TAILLE_POLICE_GAGNE, P, COUL_VAL_TRAVAIL);
+	
+	C1.x = LARGEUR/2 - 2*TAILLE_CASE - 10 ; C1.y = 3* TAILLE_CASE;
+	C2.x = LARGEUR/2 + 2*TAILLE_CASE  + 10; C2.y = 4* TAILLE_CASE;
+	draw_fill_rectangle(C1, C2, COUL_VAL_TRAVAIL);
+	T.x = LARGEUR/2; T.y = 3.5*TAILLE_CASE;
+	aff_pol_centre("REJOUER", TAILLE_POLICE, T, COUL_FOND);
+	affiche_all();
 }
 
-void quitter()
-{
-	int lettre = get_key();
-	printf("%d\n", lettre);
-	if(lettre == 'q' || lettre == 'Q' || lettre == 113 || lettre == 81)
+void menu(){
+	fill_screen(COUL_FOND);
+	POINT C1, C2, P1, P2, P3, P;
+	P1.y = HAUTEUR/2+2*TAILLE_CASE; P1.x = LARGEUR/2;
+	P2.x = LARGEUR/2; P2.y = HAUTEUR/2 - 1.5*TAILLE_CASE;
+	P3 = P2;
+	P3.y -= TAILLE_CASE;
+	C1.x = LARGEUR/2 - 2*TAILLE_CASE - 10 ; C1.y = 3* TAILLE_CASE;
+	C2.x = LARGEUR/2 + 2*TAILLE_CASE  + 10; C2.y = 4* TAILLE_CASE;
+	draw_rectangle(C1, C2, COUL_VAL_DEPART);
+	C1.x++; C1.y++; C2.x--; C2.y--;
+	draw_rectangle(C1, C2, COUL_VAL_DEPART);
+	
+	C1.x--; C2.x++; C1.y = C1.y - TAILLE_CASE-4; C2.y = C2.y - TAILLE_CASE-4;
+	draw_fill_rectangle(C1, C2, COUL_VAL_DEPART);
+	
+	aff_pol_centre("SUDOKU", TAILLE_CASE, P1, COUL_VAL_DEPART);
+	aff_pol_centre("JOUER", TAILLE_POLICE, P2, COUL_VAL_DEPART);
+	aff_pol_centre("QUITTER", TAILLE_POLICE, P3, COUL_FOND);
+	
+	affiche_all();
+	P = wait_clic();
+	if((P.x>=C1.x && P.x <= C2.x) && (P.y<=C2.y && P.y>= C1.y))
 	{
+		printf("\n##########\nFIN DE JEU\n##########\n");
 		exit(0);
 	}
-	
-	
+	else if((P.x>=C1.x && P.x <= C2.x) && (P.y<=(C2.y+TAILLE_CASE-4) && P.y>= (C1.y+TAILLE_CASE-4)))
+	{
+		;
+	}
+	else menu();
 }
 
 

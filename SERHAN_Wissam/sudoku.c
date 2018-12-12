@@ -7,19 +7,26 @@
 
 SUDOKU jouer(SUDOKU S, char* nom) {
 	POINT P;
+	P.y = 9*TAILLE_CASE;
 	char touche;
 	int fleche;
 	
 	wait_key_arrow_clic(&touche, &fleche, &P);
 	if(touche=='Q' || touche=='q')
 	{
-		printf("#####\nFIN DE JEU\n#####\n");
+		printf("\n##########\nFIN DE JEU\n##########\n");
 		exit(0);
 	}
 	else if(touche=='S' || touche=='s')
 	{
-		ecrire_fichier(S, nom);
-		printf("#####\nSAUVEGARDE EFFECTUEE\n#####\n");
+		if(ecrire_fichier(S, nom))
+		{
+			printf("\n###############\nSAUVEGARDE EFFECTUEE\n###############\n");
+		}
+		else
+		{
+			printf("\n###############\nECHEC SAUVEGARDE\n###############\n");
+		}
 	}
 	else if(P.y < 9 * TAILLE_CASE)
 	{
@@ -27,14 +34,16 @@ SUDOKU jouer(SUDOKU S, char* nom) {
 		int colonne = P.x/TAILLE_CASE;
 		if(S.T[ligne][colonne].modifiable==TRUE) S = changer_case(S,ligne,colonne);
 	}
+	
 	return S;
 }
 
 
 int main (int argc, char **argv) {
+	initialiser_fenetre_graphique();
 	SUDOKU S;
 	S = lire_fichier(argv[1]);
-	initialiser_fenetre_graphique();
+	menu();	
 	sudoku_afficher(S, argv[1]);
 	
 	while(!sudoku_complet(S)) {

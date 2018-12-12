@@ -8,5 +8,5 @@ SUDOKU lire_fichier (char *nom);
 char *new_name(char *nom);
 
 // Ecriture d'un sudoku dans un fichier
-void ecrire_fichier(SUDOKU S, char* nom);
+int ecrire_fichier(SUDOKU S, char* nom);
 #endif

@@ -17,7 +17,6 @@ void afficher_quadrillage();
 // Affiche gagné quand c'est le cas
 void gagner();
 
-// Quitte le programme a l'appui de la touche 'q'
-void quitter();
-
+// créer un menu de demarrage
+void menu();
 #endif

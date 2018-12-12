@@ -13,6 +13,7 @@
 #define LARGEUR (9*TAILLE_CASE+1)   // La taille horizontale de la fenêtre
 #define HAUTEUR ((9+1)*TAILLE_CASE) // La taille verticale   de la fenêtre
 #define TAILLE_POLICE ((2*TAILLE_CASE)/3)
+#define TAILLE_POLICE_GAGNE (2*TAILLE_CASE)
 #define TAILLE_POLICE_TITRE TAILLE_POLICE - 10 
 
 // Les différentes couleurs à changer éventuellement

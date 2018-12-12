@@ -79,7 +79,7 @@ void valeur_disponible(int *tab, SUDOKU S, int i, int j) {
 	else l = 7;
 	
 	if(j<=2) c = 1;
-	else if(j<=5 && i>2) c = 4;
+	else if(j<=5 && j>2) c = 4;
 	else c = 7;	
 	
 	for(int n=l-1; n<=l+1; n++)
@@ -119,5 +119,5 @@ int sudoku_complet(SUDOKU S) {
 	return (compteur==81) ? 1 : 0;
 }
 
-
+SUDOKU undo(PILE **p, 
 

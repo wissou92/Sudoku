@@ -16,7 +16,7 @@ SUDOKU lire_fichier (char *nom) {
 	F = fopen(nom, "r");
 	if(F == NULL){
 		printf("Impossible d'ouvrir le fichier %s\n", nom);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}	
 	while(i >= 0)
 	{
@@ -102,7 +102,7 @@ SUDOKU lire_fichier (char *nom) {
 					break;
 				default:
 					printf("######\nErreure dans le fichier\nLigne: %d Colonne: %d\nErreure detectee: %c\n######\n",ligne, colonne, caractere);
-					exit(-2);
+					exit(EXIT_FAILURE);
 					break;
 			}
 		}
@@ -117,56 +117,60 @@ SUDOKU lire_fichier (char *nom) {
 char* new_name(char* nom)
 {
 	int n=0;       // Pour passer les caractères
-	char *triplet = malloc(4*sizeof(char)); // extraction des 3 numeros du fichier de base
 	int chiffre;   // Numero du futur fichier en int
+	char *triplet = malloc(4*sizeof(char)); // extraction des 3 numeros du fichier de base
 	char *numero = malloc(4*sizeof(char));  // Numero+1 du futur fichier en char
-	//char *prefixe = malloc(9*sizeof(char)); // prefixe avant le numero du fichier
 	
 	if(numero == NULL || triplet == NULL)
 	{
 		printf("Erreur allocation memoire variable dans ecrire fichier\n");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	
 	
 	while(nom[n] != '.'){n++;}
 	
-	triplet[0]=nom[n+1]; triplet[1]=nom[n+2]; triplet[2]=nom[n+3]; triplet[4]='\0';
+	triplet[0]=nom[n+1]; triplet[1]=nom[n+2]; triplet[2]=nom[n+3]; triplet[3]='\0';
 	chiffre = atoi(triplet)+1;
 	sprintf(numero, "%d", chiffre);
-
-	char *prefixe;
-	char *extension = ".sudoku"; // extension du fichier
+	
+	char extension[] = ".sudoku"; // extension du fichier
+	char prefixe[10];
+	char debut[8];
+	
 	if(chiffre>=100)
 	{
-		char* debut= "jeux.";
-		prefixe = strcat(debut, numero);
+		strcpy(debut, "jeux.");
+		strcpy(prefixe,strcat(debut, numero));
 	}
 	else if(chiffre>=10)
 	{
-		char* debut= "jeux.0";
-		prefixe = strcat(debut, numero);
+		strcpy(debut, "jeux.0");
+		strcpy(prefixe,strcat(debut, numero));
 	}
 	else if(chiffre>=0)
 	{
-		char* debut= "jeux.00";
-		prefixe = strcat(debut, numero); // <---- ERREURE A CET ENDROIT
+		strcpy(debut, "jeux.00");
+		strcpy(prefixe,strcat(debut, numero));
 	}
-		// PROBLEME DE CONCATENATION SEGMENTATION FAULT
-		char* newFile = strcat(prefixe, extension);
-		
+
+		char* newFile = strcat(prefixe, extension);		
 		free(numero); free(triplet);
 		return newFile;		
 }
 
-void ecrire_fichier(SUDOKU S, char *nom) {
+int ecrire_fichier(SUDOKU S, char *nom) {
 	
-	FILE* F = fopen(new_name(nom),"w+");
+	char newFile[20];
+	strcpy(newFile, new_name(nom));
+	
+	FILE* F = fopen(newFile,"w+");
 
 	if(F == NULL) {
-		printf("Erreur écriture fichier\n");
-		exit(-1);
+		printf("\n###############\nErreur d'ouverture du fichier pour l'écriture");
+		return 0;
 	}
+	
 	for(int i=8; i>=0; i--)
 	{
 		for(int j=0; j<9; j++)
@@ -174,12 +178,16 @@ void ecrire_fichier(SUDOKU S, char *nom) {
 			switch(S.T[i][j].modifiable)
 			{
 				case TRUE:
-					if(S.T[i][j].valeur!=0)fprintf(F, "%c", S.T[i][j].valeur);
+					if(S.T[i][j].valeur!=0)fprintf(F, "%d", S.T[i][j].valeur);
 					else fprintf(F, ".");
+					break;
 				case FALSE:
-					fprintf(F, "*%c", S.T[i][j].valeur);
+					fprintf(F, "*%d", S.T[i][j].valeur);
+					break;
 			}
 		}
+		fprintf(F, "\n");
 	}
 	fclose(F);
+	return 1;
 }
