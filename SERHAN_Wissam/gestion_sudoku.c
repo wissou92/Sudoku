@@ -26,21 +26,20 @@ void push(PILE **p, SUDOKU S) {
 }
 
 void pop(PILE **p) {
-	if(p == NULL)
+	if(p != NULL)
 	{
-		exit(-1);
+		PILE *p_tmp;
+		p_tmp = *p;
+		*p = p_tmp->precedent;
 	}
-	PILE *p_tmp;
-	p_tmp = *p;
-	*p = p_tmp->precedent;
+	
 }
 
 SUDOKU pick(PILE* p) {
-	if(p == NULL)
+	if(p != NULL)
 	{
-		exit(-1);
+		return p->valeur;
 	}
-	return p->valeur;
 }
 
 SUDOKU depiler(PILE **p) {

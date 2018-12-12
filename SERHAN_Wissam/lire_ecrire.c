@@ -114,29 +114,59 @@ SUDOKU lire_fichier (char *nom) {
 	return S;
 }
 
-void ecrire_fichier(SUDOKU S, char *nom) {
-	int n=0;       // Passer les caractères
+char* new_name(char* nom)
+{
+	int n=0;       // Pour passer les caractères
+	char *triplet = malloc(4*sizeof(char)); // extraction des 3 numeros du fichier de base
 	int chiffre;   // Numero du futur fichier en int
-	char *numero = malloc(3*sizeof(char));  // Numero du futur fichier en char
-	char *newFile; // Futur nom de fichier
+	char *numero = malloc(4*sizeof(char));  // Numero+1 du futur fichier en char
+	//char *prefixe = malloc(9*sizeof(char)); // prefixe avant le numero du fichier
+	
+	if(numero == NULL || triplet == NULL)
+	{
+		printf("Erreur allocation memoire variable dans ecrire fichier\n");
+		exit(-1);
+	}
+	
 	
 	while(nom[n] != '.'){n++;}
 	
-	chiffre = atoi(&nom[n+1])*100+atoi(&nom[n+2])*10+atoi(&nom[n+3]);
+	triplet[0]=nom[n+1]; triplet[1]=nom[n+2]; triplet[2]=nom[n+3]; triplet[4]='\0';
+	chiffre = atoi(triplet)+1;
 	sprintf(numero, "%d", chiffre);
+
+	char *prefixe;
+	char *extension = ".sudoku"; // extension du fichier
 	if(chiffre>=100)
 	{
-		newFile = strcat("jeux.",strcat(numero,".sudoku"));
+		char* debut= "jeux.";
+		prefixe = strcat(debut, numero);
 	}
 	else if(chiffre>=10)
 	{
-		newFile = strcat("jeux.0",strcat(numero,".sudoku"));
+		char* debut= "jeux.0";
+		prefixe = strcat(debut, numero);
 	}
 	else if(chiffre>=0)
 	{
-		newFile = strcat("jeux.00",strcat(numero,".sudoku"));
+		char* debut= "jeux.00";
+		prefixe = strcat(debut, numero); // <---- ERREURE A CET ENDROIT
 	}
-	FILE* F = fopen(newFile,"w+");
+		// PROBLEME DE CONCATENATION SEGMENTATION FAULT
+		char* newFile = strcat(prefixe, extension);
+		
+		free(numero); free(triplet);
+		return newFile;		
+}
+
+void ecrire_fichier(SUDOKU S, char *nom) {
+	
+	FILE* F = fopen(new_name(nom),"w+");
+
+	if(F == NULL) {
+		printf("Erreur écriture fichier\n");
+		exit(-1);
+	}
 	for(int i=8; i>=0; i--)
 	{
 		for(int j=0; j<9; j++)

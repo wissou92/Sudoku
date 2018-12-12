@@ -53,20 +53,27 @@ void afficher_quadrillage() {
 }
 
 void sudoku_afficher(SUDOKU S, char* nom) {
-	afficher_quadrillage();
-	POINT P, T;
-	T.x = 2.5*TAILLE_CASE + 1; T.y = HAUTEUR - 7;
-	aff_pol(nom, TAILLE_POLICE_TITRE, T, COUL_TITRE);
-	for(int i=0; i<9; i++)
+	if(S.T == NULL)// en raison d'un pick sur une pile vide
 	{
-		P.y = (i*TAILLE_CASE) + (TAILLE_CASE/2) + 20;
-		
-		for(int j=0; j<9; j++)
+		printf("Sudoku vide\n");
+		exit(-1);
+	}
+	else {
+		afficher_quadrillage();
+		POINT P, T;
+		T.x = 2.5*TAILLE_CASE + 1; T.y = HAUTEUR - 7;
+		aff_pol(nom, TAILLE_POLICE_TITRE, T, COUL_TITRE);
+		for(int i=0; i<9; i++)
 		{
-			P.x = (j*TAILLE_CASE) + (TAILLE_CASE/2) - 10; 
-			if(S.T[i][j].valeur != 0)
+			P.y = (i*TAILLE_CASE) + (TAILLE_CASE/2) + 20;
+			
+			for(int j=0; j<9; j++)
 			{
-				aff_int(S.T[i][j].valeur, TAILLE_POLICE, P, (S.T[i][j].modifiable == TRUE) ? COUL_VAL_TRAVAIL : COUL_VAL_DEPART);
+				P.x = (j*TAILLE_CASE) + (TAILLE_CASE/2) - 10; 
+				if(S.T[i][j].valeur != 0)
+				{
+					aff_int(S.T[i][j].valeur, TAILLE_POLICE, P, (S.T[i][j].modifiable == TRUE) ? COUL_VAL_TRAVAIL : COUL_VAL_DEPART);
+				}
 			}
 		}
 	}

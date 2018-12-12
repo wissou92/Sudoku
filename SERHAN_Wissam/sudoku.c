@@ -5,18 +5,23 @@
 #include "gestion_sudoku.h"
 #include "lire_ecrire.h"
 
-SUDOKU jouer(SUDOKU S) {
-	POINT P=wait_clic();
-	//char touche;
-	//int* fleche;
+SUDOKU jouer(SUDOKU S, char* nom) {
+	POINT P;
+	char touche;
+	int fleche;
 	
-	//wait_key_arrow_clic(&touche, &fleche, &P);
-	/*if(touche=='Q' || touche=='q')
+	wait_key_arrow_clic(&touche, &fleche, &P);
+	if(touche=='Q' || touche=='q')
 	{
-		printf("#####\nFIN DE JEU\n#####");
+		printf("#####\nFIN DE JEU\n#####\n");
 		exit(0);
-	}	*/
-	if((P.x >= 0 && P.y >= 0) && (P.y < 9 * TAILLE_CASE))
+	}
+	else if(touche=='S' || touche=='s')
+	{
+		ecrire_fichier(S, nom);
+		printf("#####\nSAUVEGARDE EFFECTUEE\n#####\n");
+	}
+	else if(P.y < 9 * TAILLE_CASE)
 	{
 		int ligne = P.y/TAILLE_CASE;
 		int colonne = P.x/TAILLE_CASE;
@@ -33,7 +38,7 @@ int main (int argc, char **argv) {
 	sudoku_afficher(S, argv[1]);
 	
 	while(!sudoku_complet(S)) {
-		S = jouer(S);
+		S = jouer(S, argv[1]);
 		sudoku_afficher(S, argv[1]);
 	}
 	gagner();
